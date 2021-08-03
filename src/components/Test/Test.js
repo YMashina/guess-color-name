@@ -39,9 +39,6 @@ const Test = ({
   //useEffect(() => {}, [clickedAnswer]);
   return (
     <>
-      {answerClicked.length > 0 ? (
-        <Label onClick={clickNext}>NEXT</Label>
-      ) : null}
       <TestList>
         {colorNames.map((name, index) => (
           <TestItem
@@ -56,6 +53,9 @@ const Test = ({
           />
         ))}
       </TestList>
+      {answerClicked.length > 0 ? (
+        <Label onClick={clickNext}>NEXT</Label>
+      ) : null}
     </>
   );
 };

@@ -4,24 +4,25 @@ import Scene from "../styled/Scene";
 import Cube from "../styled/Cube";
 import axios from "axios";
 import { Spinner } from "grommet";
-import { cubeSides, randomColor, randomCubeSide } from "./constants";
+import { cubeSides, randomColor, shuffleArray } from "./constants";
 import Test from "../Test/Test";
 import LabelTestPoints from "../styled/LabelTestPoints";
 
 const CubeSlider = () => {
   let correctAnswer = "";
-  const [currentShowSide, setShowSide] = useState(cubeSides[randomCubeSide()]);
+  const [currentShowSide, setShowSide] = useState(0);
   const [lastShowSide, setLastShowSide] = useState(currentShowSide);
   const [isLoading, setIsloading] = useState(true);
   const [testPoints, setTestPoints] = useState(0);
   const [changeColorsState, setChangeColorsState] = useState(true);
   const [colors, setColors] = useState([]);
   const [lastCurrentColor, setLastCurrentColor] = useState();
+  const [shuffledColors, setShuffledColors] = useState([]);
 
   const getColors = async () => {
     await axios
       .get(
-        `https://www.thecolorapi.com/scheme?hex=${randomColor()}&mode=analogic&count=4`
+        `https://www.thecolorapi.com/scheme?hex=${randomColor()}&mode=analogic&count=7`
       )
       .then((response) => {
         const uniqueColors = [
@@ -32,17 +33,15 @@ const CubeSlider = () => {
         if (uniqueColors.length < 2) {
           getColors();
         } else {
-          setColors(uniqueColors);
+          setColors(uniqueColors.slice(0, 3));
+          setShuffledColors(shuffleArray(uniqueColors.slice(0, 3)));
         }
       })
       .catch((error) => console.log(error));
   };
 
   useEffect(() => {
-    let newShowSide = cubeSides[randomCubeSide()];
-    while (newShowSide === lastShowSide)
-      newShowSide = cubeSides[randomCubeSide()];
-    setShowSide(newShowSide);
+    setShowSide(currentShowSide ? 0 : 1);
 
     getColors().then(() => {
       setIsloading(false);
@@ -66,7 +65,7 @@ const CubeSlider = () => {
       if (colorIndex > colors.length - 1) {
         colorIndex = 0;
       }
-      if (side === currentShowSide) {
+      if (side === cubeSides[currentShowSide]) {
         color = colors[colorIndex].rgb.value;
       }
     });
@@ -75,19 +74,15 @@ const CubeSlider = () => {
 
   const renderCubeSides = () => {
     let renderSides = cubeSides.map((side, index) => {
-      let colorIndex = index;
-      if (colorIndex > colors.length - 1) {
-        colorIndex = 0;
+      if (side === cubeSides[currentShowSide]) {
+        correctAnswer = colors[index].name.value;
       }
-
-      if (side === currentShowSide) {
-        correctAnswer = colors[colorIndex].name.value;
-      }
-      if (side === lastShowSide) {
+      if (side === cubeSides[lastShowSide]) {
         return <CubeFace rgb={lastCurrentColor} cubeSide={side} />;
       }
-      return <CubeFace rgb={colors[colorIndex].rgb.value} cubeSide={side} />;
+      return <CubeFace rgb={colors[index].rgb.value} cubeSide={side} />;
     });
+
     return renderSides;
   };
 
@@ -98,11 +93,11 @@ const CubeSlider = () => {
         <Spinner />
       ) : (
         <Scene>
-          <Cube showSide={currentShowSide}>{renderCubeSides()}</Cube>
+          <Cube showSide={cubeSides[currentShowSide]}>{renderCubeSides()}</Cube>
         </Scene>
       )}
       <Test
-        colorNames={colors.map((color) => color.name.value)}
+        colorNames={shuffledColors.map((color) => color.name.value)}
         correctAnswer={correctAnswer}
         changeColors={changeColors}
         testPointsCounter={testPointsCounter}
