@@ -6,6 +6,7 @@ import axios from "axios";
 import { Spinner } from "grommet";
 import { cubeSides, randomColor, randomCubeSide } from "./constants";
 import Test from "../Test/Test";
+import LabelTestPoints from "../styled/LabelTestPoints";
 
 const CubeSlider = () => {
   let correctAnswer = "";
@@ -92,7 +93,7 @@ const CubeSlider = () => {
 
   return (
     <div>
-      <div>Test points: {testPoints}</div>
+      <LabelTestPoints>Test points: {testPoints}</LabelTestPoints>
       {isLoading ? (
         <Spinner />
       ) : (

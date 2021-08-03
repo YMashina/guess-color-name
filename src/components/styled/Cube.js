@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { CUBE_WIDTH } from "../CubeSlider/constants";
 
 const Cube = styled.div`
-  margin-top: 3rem;
+  margin-top: 1rem;
   width: ${CUBE_WIDTH}rem;
   height: ${CUBE_WIDTH}rem;
   position: relative;

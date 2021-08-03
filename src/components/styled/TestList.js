@@ -5,7 +5,7 @@ const TestList = styled.div`
   list-style-type: none;
   padding: 0;
   max-width: 30rem;
-  margin: 0 auto;
+  margin: 3rem auto;
 `;
 
 export default TestList;
