@@ -1,11 +1,17 @@
 import TestListItem from "../styled/TestListItem";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
-const TestItem = ({ name, key, status, clickedAnswer }) => {
-  const [disableClick, setDisableClick] = useState(false);
+const TestItem = ({
+  name,
+  key,
+  status,
+  clickedAnswer,
+  settingDisabled,
+  disabled,
+}) => {
   const answerIsClicked = () => {
-    setDisableClick(true);
-    console.log("clickedAnswer " + name);
+    settingDisabled();
+    //console.log("clickedAnswer " + name);
     clickedAnswer(name);
   };
 
@@ -13,8 +19,8 @@ const TestItem = ({ name, key, status, clickedAnswer }) => {
     <TestListItem
       key={key}
       onClick={answerIsClicked}
-      disabled={disableClick}
       status={status}
+      disabled={disabled}
     >
       {name}
     </TestListItem>

@@ -27,6 +27,12 @@ const TestListItem = styled.li`
   }
 
   ${(props) => {
+    if (props.disabled) {
+      return "pointer-events: none;";
+    }
+  }}
+
+  ${(props) => {
     switch (props.status) {
       case "correct":
         return "background: #baffcd";
