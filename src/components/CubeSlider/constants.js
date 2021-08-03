@@ -1,3 +1,5 @@
+import Confetti from "react-dom-confetti";
+
 const cubeSides = ["front", "right"];
 
 const randomColor = () => Math.floor(Math.random() * 16777215).toString(16);
@@ -26,4 +28,25 @@ const shuffleArray = (array) => {
   return array;
 };
 
-export { cubeSides, randomColor, CUBE_WIDTH, randomCubeSide, shuffleArray };
+const confettiConfig = {
+  angle: "0",
+  spread: "353",
+  startVelocity: "53",
+  elementCount: 70,
+  dragFriction: "0.23",
+  duration: 3000,
+  stagger: 3,
+  width: "6px",
+  height: "11px",
+  perspective: "695px",
+  colors: ["#a864fd", "#29cdff", "#78ff44", "#ff718d", "#fdff6a"],
+};
+
+export {
+  cubeSides,
+  randomColor,
+  CUBE_WIDTH,
+  randomCubeSide,
+  shuffleArray,
+  confettiConfig,
+};

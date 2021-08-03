@@ -7,6 +7,8 @@ const TestListItem = styled.li`
   border: 0.1rem #9e9e9e solid;
   padding: 1rem 1.5rem;
   text-align: center;
+  display: flex;
+  justify-content: center;
 
   &:first-child {
     margin-top: 1rem;

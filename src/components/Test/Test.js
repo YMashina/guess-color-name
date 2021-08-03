@@ -49,6 +49,7 @@ const Test = ({
             }
             clickedAnswer={(name) => clickedAnswer(name)}
             disabled={disabled}
+            correctAnswer={correctAnswer}
             settingDisabled={settingDisabled}
           />
         ))}
