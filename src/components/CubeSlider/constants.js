@@ -8,7 +8,8 @@ const randomCubeSide = () => Math.floor(Math.random() * 5);
 
 const CUBE_WIDTH = 20;
 
-const shuffleArray = (array) => {
+const shuffleArray = (arrayToShuffle) => {
+  const array = [...arrayToShuffle];
   let currentIndex = array.length,
     randomIndex;
 
