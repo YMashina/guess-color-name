@@ -9,15 +9,16 @@ const Test = ({
   correctAnswer,
   changeColors,
   testPointsCounter,
+  answersCounter
 }) => {
   useEffect(() => {
     setDisabled(false);
   }, [correctAnswer]);
   const [answerClicked, setAnswerClicked] = useState("");
   const [disabled, setDisabled] = useState(false);
+
   const clickedAnswerStatus = (name) => {
-    //changeColors();
-    return name === correctAnswer ? "correct" : "uncorrect";
+    return name === correctAnswer ? "correct" : "incorrect";
   };
 
   const clickedAnswer = (name) => {
@@ -25,6 +26,7 @@ const Test = ({
     if (name === correctAnswer) {
       testPointsCounter();
     }
+    answersCounter();
   };
 
   const clickNext = () => {

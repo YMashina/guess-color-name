@@ -38,7 +38,7 @@ const TestListItem = styled.li`
     switch (props.status) {
       case "correct":
         return "background: #baffcd";
-      case "uncorrect":
+      case "incorrect":
         return "background: #ffbaba";
       default:
         return "background: none";
