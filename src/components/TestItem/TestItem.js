@@ -33,8 +33,10 @@ const TestItem = ({
         onClick={answerIsClicked}
         status={status}
         disabled={disabled}
-      >
+      ><div>
         <Confetti active={confetti} config={confettiConfig} />
+      </div>
+
         {name}
       </TestListItem>
     </>
