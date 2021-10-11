@@ -1,15 +1,15 @@
-import React, {useEffect, useMemo, useState} from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import CubeFace from "../styled/CubeFace";
 import Scene from "../styled/Scene";
 import Cube from "../styled/Cube";
 import axios from "axios";
 import Spinner from "../styled/Spinner";
-import {cubeSides, randomColor, shuffleArray} from "./constants";
+import { cubeSides, randomColor, shuffleArray } from "./constants";
 import Test from "../Test/Test";
 import LabelTestPoints from "../styled/LabelTestPoints";
+import ConfettiDiv from "../TestItem/styled/ConfettiDiv";
 
 const CubeSlider = () => {
-
   const [isLoading, setIsLoading] = useState(true);
   const [testPoints, setTestPoints] = useState(0);
   const [answerCounter, setAnswerCounter] = useState(0);
@@ -40,7 +40,7 @@ const CubeSlider = () => {
       .catch((error) => console.log(error));
   };
 
-  const shuffledColors = useMemo(() => shuffleArray(colors), [colors])
+  const shuffledColors = useMemo(() => shuffleArray(colors), [colors]);
 
   useEffect(async () => {
     setShowSide(currentShowSide ? 0 : 1);
@@ -75,20 +75,25 @@ const CubeSlider = () => {
     return color;
   };
 
-  const correctAnswer = useMemo(() => colors[currentShowSide]?.name.value, [colors]);
+  const correctAnswer = useMemo(
+    () => colors[currentShowSide]?.name.value,
+    [colors]
+  );
 
   const renderCubeSides = () => {
     return cubeSides.map((side, index) => {
       if (side === cubeSides[lastShowSide]) {
-        return <CubeFace rgb={lastCurrentColor} cubeSide={side}/>;
+        return <CubeFace rgb={lastCurrentColor} cubeSide={side} />;
       }
-      return <CubeFace rgb={colors[index].rgb.value} cubeSide={side}/>;
+      return <CubeFace rgb={colors[index].rgb.value} cubeSide={side} />;
     });
   };
 
   return (
-    <div>
-      <LabelTestPoints>Test points: {testPoints}/{answerCounter}</LabelTestPoints>
+    <ConfettiDiv>
+      <LabelTestPoints>
+        Test points: {testPoints}/{answerCounter}
+      </LabelTestPoints>
       {isLoading ? (
         <Spinner />
       ) : (
@@ -103,7 +108,7 @@ const CubeSlider = () => {
         testPointsCounter={testPointsCounter}
         answersCounter={answersCounter}
       />
-    </div>
+    </ConfettiDiv>
   );
 };
 
